@@ -1,0 +1,151 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title><link rel="stylesheet" href="aguacatepriv.css">
+
+
+
+
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Aguacate<span>Premium</span></div>
+        <ul class="menu">
+
+            <li><a href="c:\Users\DARIEL\OneDrive\Desktop\todo\proyecto\index.html">Inicio</a></li>
+            
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+   <!-- Productos -->
+   <section id="products" class="products">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nuestros Aguacates</h2>
+        <p>Seleccionamos a mano cada uno de nuestros aguacates para garantizar que solo recibas los mejores.</p>
+      </div>
+
+
+
+
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="cap1.jpg" alt="Aguacate Hass">
+          </div>
+
+ 
+
+          <div class="product-info">
+            <h3>Aguacate Hass</h3>
+            <p>Nuestro aguacate estrella, cremoso y con un sabor inigualable. Perfecto para guacamole y tostadas.</p>
+            <div class="product-price">
+
+              <p>Precio por unidad: <span class="price">$30.99/kg</span>
+              </p><p>
+              <label for="quantity">Cantidad:</label>
+              <input type="number" id="quantity" name="numero1" min="1" value="1">
+              <p><button class="add-to-cart" onclick="calculoTotal()">Calcular</button></p></p>
+          </div>
+          <div id="result2" class="result2">
+              <p><strong>Total a Pagar:</strong> $<span id="totalPrice">0.00</span></p>
+          </div>
+
+
+          
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+          <a class="product-card2">
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="cap2.jpg" alt="Aguacate Fuerte">
+          </div>
+          
+          <div class="product-info" class="el2">
+            <h3>Aguacate Fuerte</h3>
+            <p>De tamaño grande y sabor suave. Ideal para ensaladas y platos gourmet por su textura firme.</p>
+            <div class="product-price">
+
+
+
+              <p>Precio por unidad: <span class="price">$40.80/kg</span>
+              </p><p>
+              <label for="quantity2">Cantidad:</label>
+              <input type="number" id="quantity2" name="quantity2" min="1" value="1">
+              <p><button class="add-to-cart" onclick="calculoTotal2()">Calcular</button></p></p>
+          </div>
+          <div id="result2" class="result2">
+              <p><strong>Total a Pagar:</strong> $<span id="totalPrice2">0.00</span></p>
+          </div>
+          </a>
+
+  
+
+
+            </div>
+          </div>
+             
+
+
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="cap3.jpg" alt="Pack Familiar">
+          </div>
+          <div class="product-info">
+            <h3>Pack Familiar</h3>
+            <p>Lleva 5kg de nuestros aguacates Hass y ahorra. Perfectos para familias o amantes del aguacate.</p>
+            <div class="product-price">
+
+              <p>Precio por 5 unidades: <span class="price">$129.95</span> aguacates de 100g-300g
+              </p><p>
+              <label for="quantity3">Cantidad:</label>
+              <input type="number" id="quantity3" name="quantity3" min="1" value="1">
+              <p><button class="add-to-cart" onclick="calculoTotal3()">Calcular</button></p></p>
+          </div>
+          <div id="result2" class="result2">
+              <p><strong>Total a Pagar:</strong> $<span id="totalPrice3">0.00</span></p>
+          </div>
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <script src="agucatepriv.js"></script>
+
+</div>
+<button class="btn" onclick="irAPagos()">comprar</button>
+
+</body>
+<script>
+		function irAPagos() {
+		  var sigPag = "pago.html?hass="+document.getElementById('quantity')
+      .value+"&fuerte="+document.getElementById('quantity2')
+      .value+"&pack="+document.getElementById('quantity3').value;
+		  location.replace(sigPag)
+		}
+	</script>
+
+</html>

@@ -1,0 +1,122 @@
+
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Comentarios</title>
+
+
+  
+  <div class="container">
+
+
+  <link rel="stylesheet" href="aguacatepriv.css" /></div>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Aguacate<span>Premium</span></div>
+        <ul class="menu">
+            <li><a href="c:\Users\DARIEL\OneDrive\Desktop\todo\proyecto\index.html">Inicio</a></li>
+
+          <li><a href="productos.html">Productos</a></li>
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+</head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<body>
+    <section id="contact" class="contact">
+        <div class="container" center="true">
+          <div class="section-title">
+            <h2>PEDIDO</h2>
+            <p>¿Tienes alguna pregunta? ¿Quieres hacer un pedido especial? Escríbenos y te responderemos lo antes posible.</p>
+          </div>
+		  <table>
+			  <tr>
+				<th>Producto</th>
+				<th>Cantidad</th>
+				<th>Precio</th>
+			  </tr>
+			  <tr>
+				<td>Aguacate Hass</td>
+				<td><input type="text" id="chass" class="form-control" readonly="true"/></td>
+				<td><input type="text" id="phass" class="form-control" readonly="true"/></td>
+			  </tr>
+			  <tr>
+				<td>Aguacate Fuerte</td>
+				<td><input type="email" id="cfuerte" class="form-control" readonly="true"/></td>
+        				<td><input type="text" id="pfuerte" class="form-control" readonly="true"/></td>
+
+				<td></td>
+			  </tr>
+			  <tr>
+				<td>Pack Familiar</td>
+				<td><input type="phone" id="cpack" class="form-control" readonly="true"/></td>
+        				<td><input type="text" id="ppack" class="form-control" readonly="true"/></td>
+
+				<td></td>
+			  </tr>
+		  </table>
+          <div class="form-container">
+            <form id="contact-form">              
+              <div class="form-group">
+                <label for="message">Total</label>
+                <textarea id="ptotal" class="form-control" rows="5" required></textarea>
+              </div>
+              
+              <button type="submit" class="submit-btn">metodo de Pago</button>
+            </form>
+          </div>
+        </div>
+        <script src="pago.js"></script>
+    
+      </section>
+</body>
+</html>
+
+</body>
+<script type="text/javascript">
+	const params = new URLSearchParams(document.location.search);
+	const q1 = params.get("hass");
+	const q2 = params.get("fuerte");
+	const q3 = params.get("pack");
+	
+	document.getElementById('chass').value = q1;
+	document.getElementById('cfuerte').value = q2;
+	document.getElementById('cpack').value = q3;
+	
+	var p1 = q1*30.99;
+	var p2 = q2*40.80;
+	var p3 = q3*129.95;
+	var total = p1+p2+p3;
+	
+	document.getElementById('phass').value = p1;
+  document.getElementById('pfuerte').value = p2;
+  document.getElementById('ppack').value = p3;
+
+
+	document.getElementById('ptotal').value = total;
+	
+	console.info(q1+","+q2+","+q3); //show 1
+  
+  </script>
+</html>

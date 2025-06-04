@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Comentarios</title><link rel="stylesheet" href="prueba1.css"><link rel="stylesheet" href="aguacatepriv.css">
+    
+ 
+</head>
+<body>
+     <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Aguacate<span>Premium</span></div>
+        <ul class="menu">
+          
+          <li><a href="c:\Users\DARIEL\OneDrive\Desktop\todo\proyecto\index.html">Inicio</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</body>
+<body>
+    
+    <div class="container1">
+        <h1>Gestión de Comentarios</h1>
+        
+        <div class="form-container">
+            <h2>Agregar Nuevo Comentario</h2>
+            <form id="comment-form">
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comentario:</label>
+                    <textarea id="comment" required></textarea>
+                </div>
+                <button type="submit">Agregar Comentario</button>
+            </form>
+        </div>
+        
+        <div class="search-container">
+            <div class="form-group">
+                <label for="search">Buscar comentarios:</label>
+                <input type="text" id="search" placeholder="Buscar por nombre, correo o contenido...">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <h2>Lista de Comentarios <span id="comment-count" class="badge">0</span></h2>
+            <table id="comments-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo Electrónico</th>
+                        <th>Comentario</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="comments-body">
+                    <!-- Aquí se insertarn los comentarios -->
+                </tbody>
+            </table>
+            <div id="no-comments" class="no-comments">No hay comentarios para mostrar</div>
+        </div>
+    </div>
+
+    <script>
+        // Estado de la aplicación
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        let editingIndex = -1;
+        
+        // Elementos del DOM
+        const commentForm = document.getElementById('comment-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const commentInput = document.getElementById('comment');
+        const commentsBody = document.getElementById('comments-body');
+        const noCommentsEl = document.getElementById('no-comments');
+        const searchInput = document.getElementById('search');
+        const commentCountEl = document.getElementById('comment-count');
+        
+        // Función para validar email
+        function validateEmail(email) {
+            return re.test(email);
+        }
+        
+        // Función para renderizar los comentarios
+        function renderComments(commentsList = comments) {
+            commentsBody.innerHTML = '';
+            commentCountEl.textContent = commentsList.length;
+            
+            if (commentsList.length === 0) {
+                noCommentsEl.style.display = 'block';
+                return;
+            }
+            
+            noCommentsEl.style.display = 'none';
+            
+            commentsList.forEach((comment, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${comment.name}</td>
+                    <td>${comment.email}</td>
+                    <td>${comment.comment}</td>
+                    <td>${new Date(comment.date).toLocaleDateString()} ${new Date(comment.date).toLocaleTimeString()}</td>
+                    <td class="comment-actions">
+                        <button class="btn-edit" data-index="${index}">Editar</button>
+                        <button class="btn-delete" data-index="${index}">Eliminar</button>
+                    </td>
+                `;
+                
+                commentsBody.appendChild(row);
+            });
+            
+            // Agregar event listeners a los botones
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', function() {
+                    editComment(parseInt(this.getAttribute('data-index')));
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete').forEach(button => {
+                button.addEventListener('click', function() {
+                    deleteComment(parseInt(this.getAttribute('data-index')));
+                });
+            });
+        }
+        
+        // Función para agregar un comentario
+        function addComment(e) {
+            e.preventDefault();
+            
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const comment = commentInput.value.trim();
+            
+            if (!name || !email || !comment) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('Por favor, ingrese un correo electrónico válido');
+                return;
+            }
+            
+            const newComment = {
+                name,
+                email,
+                comment,
+                date: new Date().toISOString()
+            };
+            
+            if (editingIndex === -1) {
+                comments.push(newComment);
+            } else {
+                comments[editingIndex] = newComment;
+                editingIndex = -1;
+                document.querySelector('button[type="submit"]').textContent = 'Agregar Comentario';
+            }
+            
+            localStorage.setItem('comments', JSON.stringify(comments));
+            commentForm.reset();
+            renderComments();
+        }
+        
+        // Función para editar un comentario
+        function editComment(index) {
+            const comment = comments[index];
+            
+            nameInput.value = comment.name;
+            emailInput.value = comment.email;
+            commentInput.value = comment.comment;
+            
+            editingIndex = index;
+            document.querySelector('button[type="submit"]').textContent = 'Actualizar Comentario';
+            
+            // Scroll to the form
+            document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Función para eliminar un comentario
+        function deleteComment(index) {
+            if (confirm('¿Está seguro de que desea eliminar este comentario?')) {
+                comments.splice(index, 1);
+                localStorage.setItem('comments', JSON.stringify(comments));
+                renderComments();
+                
+                // Si estábamos editando el comentario que se eliminó
+                if (editingIndex === index) {
+                    commentForm.reset();
+                    editingIndex = -1;
+                    document.querySelector('button[type="submit"]').textContent = 'Agregar Comentario';
+                }
+            }
+        }
+        
+        // Función para buscar comentarios
+        function searchComments() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (!searchTerm) {
+                renderComments();
+                return;
+            }
+            
+            const filteredComments = comments.filter(comment => {
+                return (
+                    comment.name.toLowerCase().includes(searchTerm) ||
+                    comment.email.toLowerCase().includes(searchTerm) ||
+                    comment.comment.toLowerCase().includes(searchTerm)
+                );
+            });
+            
+            renderComments(filteredComments);
+        }
+        
+        // Event listeners
+        commentForm.addEventListener('submit', addComment);
+        searchInput.addEventListener('input', searchComments);
+        
+        // Inicializar la aplicación
+        renderComments();
+    </script>
+    
+</body>
+</html>
+<body>
+    
+</body>
+</html>
+   <footer>
+    <div class="container1">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>AguacatePremium</h3>
+          <p>Ofrecemos los mejores aguacates orgánicos cultivados con amor y pasión por nuestros agricultores locales.</p>
+          <div class="social-links">
+
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Enlaces Rápidos</h3>
+          <a href="#home">Inicio</a>
+          <a href="#products">Productos</a>
+          <a href="#benefits">Beneficios</a>
+          <a href="#testimonials">Testimonios</a>
+          <a href="#contact">Contacto</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contacto</h3>
+          <p>📍 Calle Niño Artillero, Tlalnepantla , morelos, Jardines del Aguacate</p>
+          <p>📱 735215887</p>
+          <p>📧 info@aguacatepremium.com</p>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 AguacatePremium. lo mejor de lo mejor.
+      </div>
+    </div>
+  </footer>
+
+
+ </body>
