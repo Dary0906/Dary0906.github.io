@@ -531,24 +531,57 @@ width: 10%;
   }
   
   /* Responsive */
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 36px;
-    }
-    
-    .hero p {
-      font-size: 18px;
-    }
-    
-    .menu {
-      display: none;
-    }
-    
-    .cart-container {
-      width: 300px;
-    }
+  @media (min-width: 320px) and (max-width: 2560px) {
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0 20px;
+    background-color: #ffffff;
+    color: #333333;
   }
 
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  header {
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 3rem); /* Escala de móvil a escritorio */
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+}
   .name{
     color: #c5e1a5;
   }
