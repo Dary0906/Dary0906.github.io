@@ -172,63 +172,17 @@
   }
 
   .creado {
-width: 10%;
+width: 100px;
 
     border: 2px solid rgb(0, 0, 0);
     position: relative;
    
     background-image: url(cap1.jpg);
 
-    left: 950px;
+    
     top: 0px;
 }
-@keyframes cambiafondo{
-     0%{
-        background-image: url(cap1.jpg);
-        background-size: cover;
 
-
-     }
-     50%{
-        background-image: url(cap2.jpg);
-        background-size: cover;
-
-     }
-     100%{
-        background-image: url(cap3.jpg);
-        background-size: cover;
-
-    }
-}
-@keyframes cabiaposicion{
-    0%{left: 0px;
-        background-image: url(cap1.jpg);
-        background-size: cover;
-
-
-        top: 0px;}
-
-    25%{ left: 600px;
-        background-image: url(cap2.jpg);
-        background-size: cover;
-
-
-         top:0px;    }
-
-    75%{top:400px;
-        background-image: url(cap3.jpg);
-        background-size: cover;
-
-    }
-
-    100%{top: 0px;
-        background-image: url(cap1.jpg);
-        background-size: cover;
-
-    }
-    
-}
-  
   
   .product-image img {
     width: 100%;
