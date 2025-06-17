@@ -176,8 +176,7 @@ width: 10%;
 
     border: 2px solid rgb(0, 0, 0);
     position: relative;
-    animation: cambiafondo 4s infinite ;
-    animation: cabiaposicion 4s ease-in-out ;
+   
     background-image: url(cap1.jpg);
 
     left: 950px;
